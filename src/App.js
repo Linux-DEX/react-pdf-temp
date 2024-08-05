@@ -10,17 +10,17 @@ pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.vers
 
 function App() {
 
-  //  useEffect(() => {
-  //  const handleRightClick = (event) => {
-  //    event.preventDefault();
-  //  };
-  //
-  //  document.addEventListener('contextmenu', handleRightClick);
-  //
-  //  return () => {
-  //    document.removeEventListener('contextmenu', handleRightClick);
-  //  };
-  //}, []);
+    useEffect(() => {
+    const handleRightClick = (event) => {
+      event.preventDefault();
+    };
+
+    document.addEventListener('contextmenu', handleRightClick);
+
+    return () => {
+      document.removeEventListener('contextmenu', handleRightClick);
+    };
+  }, []);
 
   const [textContent, setTextContent] = useState([]);
   const [selectedText, setSelectedText] = useState(null);

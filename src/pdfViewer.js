@@ -12,6 +12,7 @@ const PdfViewer = ({ pdfUrl }) => {
   const [pageNumber, setPageNumber] = useState(1);
   const pdfContainerRef = useRef();
   const [ error, setError ] = useState(null);
+  const [ pageDimensions, setPageDimensions ] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
     const loadTextContent = async () => {
@@ -63,6 +64,13 @@ const PdfViewer = ({ pdfUrl }) => {
     setError(error.message || 'Unknown error');
   };
 
+  const onPageLoadSuccess = ({ width, height }) => {
+    setPageDimensions({ width, height });
+    // below code will console all page dimensions at same time
+    //console.log("width: ", width);
+    //console.log("height: ", height);
+  };
+
   return (
     <div>
       <Document
@@ -76,10 +84,17 @@ const PdfViewer = ({ pdfUrl }) => {
             pageNumber={index + 1}
             renderTextLayer={true}
             onClick={handleSelection}
+            onLoadSuccess={onPageLoadSuccess}
           />
         ))}
       </Document>
       {selectedText && <div>Selected Text: {selectedText}</div>}
+      <div>
+        <p>Current page dimensions:</p>
+        <p>Width: {pageDimensions.width}px</p>
+        <p>Height: {pageDimensions.height}px</p>
+      </div>
+      { error & <div>Error: { error }</div>}
     </div>
   );
 };
