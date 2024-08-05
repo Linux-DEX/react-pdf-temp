@@ -5,22 +5,24 @@ import { useEffect, useState } from 'react';
 import PDFTextCoordinates from './PDFTextCoordinates';
 import pdffile from "./fastapi.pdf";
 import PdfViewer from './pdfViewer';
+import ContextMenu from './ContextMenu';
 
 pdfjs.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 function App() {
 
-    useEffect(() => {
-    const handleRightClick = (event) => {
-      event.preventDefault();
-    };
-
-    document.addEventListener('contextmenu', handleRightClick);
-
-    return () => {
-      document.removeEventListener('contextmenu', handleRightClick);
-    };
-  }, []);
+  // this code will disable right click completely
+  //useEffect(() => {
+  //  const handleRightClick = (event) => {
+  //    event.preventDefault();
+  //  };
+  //
+  //  document.addEventListener('contextmenu', handleRightClick);
+  //
+  //  return () => {
+  //    document.removeEventListener('contextmenu', handleRightClick);
+  //  };
+  //}, []);
 
   const [textContent, setTextContent] = useState([]);
   const [selectedText, setSelectedText] = useState(null);
@@ -33,7 +35,6 @@ function App() {
     const selectedText = window.getSelection().toString();
     setSelectedText(selectedText);
 
-    // Find coordinates for the selected text
     const coordinates = findTextCoordinates(selectedText, textContent);
     console.log('Coordinates:', coordinates);
   };
@@ -43,7 +44,6 @@ function App() {
     for (const page of textContentArray) {
       for (const item of page.items) {
         if (item.str.includes(selectedText)) {
-          // Transform matrix provides position; extract if needed
           return {
             page: page.page,
             text: item.str,
@@ -56,11 +56,16 @@ function App() {
   };
 
   return (
-    <div className="App">
-      //<h2>React pdf testing</h2>
-      //<PdfComp />
-      //<PDFTextCoordinates file={pdffile}/>
+    <div 
+      className="App"
+      onContextMenu={(e) => {
+        e.preventDefault();
+        console.log("right click");
+      }}
+    >
+      <h1>React pdf - PdfViewer Component</h1>
       <PdfViewer pdfUrl={pdffile}/>
+      <ContextMenu />
     </div>
   );
 }

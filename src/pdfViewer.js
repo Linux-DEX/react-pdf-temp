@@ -55,6 +55,8 @@ const PdfViewer = ({ pdfUrl }) => {
         const [a, b, c, d, e, f] = coord.transform;
         console.log(`Text: ${coord.str}`);
         console.log(`Coordinates: x: ${e}, y: ${f}`);
+        console.log(`scaling factor: a: ${a} d: ${d} `)
+        console.log(`skewing factor: b: ${b} c: ${c} `)
       });
     }
   }, [selectedText, pageNumber, pageText]);
