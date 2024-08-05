@@ -60,7 +60,7 @@ const ContextMenu = () => {
         </div>
       )}
 
-      <style jsx>{`
+      <style>{`
         .context-menu {
           position: absolute;
           text-align: center;

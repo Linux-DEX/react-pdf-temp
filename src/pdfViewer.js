@@ -10,7 +10,6 @@ const PdfViewer = ({ pdfUrl }) => {
   const [pageText, setPageText] = useState({});
   const [selectedText, setSelectedText] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
-  const pdfContainerRef = useRef();
   const [ error, setError ] = useState(null);
   const [ pageDimensions, setPageDimensions ] = useState({ width: 0, height: 0 });
 
@@ -23,6 +22,7 @@ const PdfViewer = ({ pdfUrl }) => {
       for (let i = 1; i <= numPages; i++) {
         const page = await pdf.getPage(i);
         const textContent = await page.getTextContent();
+        console.log(textContent.items)
         texts[i] = textContent.items.map(item => ({
           str: item.str,
           transform: item.transform
