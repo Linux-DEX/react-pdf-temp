@@ -3,8 +3,8 @@ import PdfComp from './PdfComp';
 import { pdfjs } from "react-pdf";
 import { useEffect, useState } from 'react';
 import PDFTextCoordinates from './PDFTextCoordinates';
-//import pdffile from "./fastapi.pdf";
-import pdffile from "./test.pdf";
+import pdffile from "./fastapi.pdf";
+//import pdffile from "./test.pdf";
 import PdfViewer from './pdfViewer';
 import ContextMenu from './ContextMenu';
 
